@@ -1,3 +1,4 @@
+from stat import FILE_ATTRIBUTE_SPARSE_FILE
 from urllib.request import *
 from json import *
 from datetime import *
@@ -5,17 +6,20 @@ from operator import *
 from bs4 import BeautifulSoup
 import math
 import requests
+from firebase import firebase
+
+
 
 
 # install parser: pip install lxml
 # install requests: pip install requests
- 
+# install firebase: pip install python-firebase
 
 # url format: urlBeggining championName urlEnding
 urlBeggining = 'http://u.gg/lol/champions/'
 urlEnding = '/build'
 
-champs = ['aatrox', 'ahri', 'akali', 'akshan', 'alistar', 'alistar', 'amumu', 'anivia', 'annie', 'aphelios', 'ashe', 'aurelionsol', 'azir', 
+champs = {'aatrox', 'ahri', 'akali', 'akshan', 'alistar', 'alistar', 'amumu', 'anivia', 'annie', 'aphelios', 'ashe', 'aurelionsol', 'azir', 
 'bard', 'blitzcrank', 'brand', 'braum', 'caitlyn', 'camille', 'cassiopeia', 'chogath', 'corki', 'darius', 'diana', 'drmundo', 'draven', 'ekko',
 'elise', 'evelynn', 'ezreal', 'fiddlesticks', 'fiora', 'fizz', 'galio', 'gangplank', 'garen', 'gnar', 'gragas', 'graves', 'gwen', 'hecarim', 
 'heimerdinger', 'illaoi', 'irelia', 'ivern', 'janna', 'jarvaniv', 'jax', 'jayce', 'jhin', 'jinx', 'kaisa', 'kalista', 'karma', 'karthus', 
@@ -26,7 +30,7 @@ champs = ['aatrox', 'ahri', 'akali', 'akshan', 'alistar', 'alistar', 'amumu', 'a
 'singed', 'sion', 'sivir', 'skarner', 'sona', 'soraka', 'swain', 'sylas', 'syndra', 'tahmkench', 'taliyah', 'talon', 'taric', 'teemo', 'thresh', 
 'tristana', 'trundle', 'tryndamere', 'twistedfate', 'twitch', 'udyr', 'urgot', 'varus', 'vayne', 'veigar', 'velkoz', 'vex', 'vi', 'viego', 
 'viktor', 'vladimir', 'volibear', 'warwick', 'wukong', 'xayah', 'xerath', 'xinzhao', 'yasuo', 'yone', 'yorick', 'yuumi', 'zac', 'zed', 'zeri', 
-'ziggs', 'zilean', 'zoe', 'zyra']
+'ziggs', 'zilean', 'zoe', 'zyra'}
 
 # for champ in champs:
 #    fullUrl = urlBeggining + champ + urlEnding
@@ -38,7 +42,7 @@ champs = ['aatrox', 'ahri', 'akali', 'akshan', 'alistar', 'alistar', 'amumu', 'a
 #    print(f"{name}'s winrate is {winRate}")
 
 
-
+db = firebase.FirebaseApplication("https://jaroniagg-default-rtdb.firebaseio.com/")
 
 # This removes white space which allows us to 
 # input "twisted fate" which will turn into "twistedfate"
@@ -58,6 +62,9 @@ else:
    winRate = soup.find('div', class_= "value").text
    print(f"{name}'s winrate is {winRate}")
 
+
+   result = db.put('/jaroniagg-default-rtdb/Garen', 'top', winRate)
+   print(result)
 
 
 # Code below is from CPE 101 Project 5. 
