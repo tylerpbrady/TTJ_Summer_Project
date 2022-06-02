@@ -15,16 +15,49 @@ import requests
 urlBeggining = 'http://u.gg/lol/champions/'
 urlEnding = '/build'
 
-champs = ['aatrox', 'garen']
+champs = ['aatrox', 'ahri', 'akali', 'akshan', 'alistar', 'alistar', 'amumu', 'anivia', 'annie', 'aphelios', 'ashe', 'aurelionsol', 'azir', 
+'bard', 'blitzcrank', 'brand', 'braum', 'caitlyn', 'camille', 'cassiopeia', 'chogath', 'corki', 'darius', 'diana', 'drmundo', 'draven', 'ekko',
+'elise', 'evelynn', 'ezreal', 'fiddlesticks', 'fiora', 'fizz', 'galio', 'gangplank', 'garen', 'gnar', 'gragas', 'graves', 'gwen', 'hecarim', 
+'heimerdinger', 'illaoi', 'irelia', 'ivern', 'janna', 'jarvaniv', 'jax', 'jayce', 'jhin', 'jinx', 'kaisa', 'kalista', 'karma', 'karthus', 
+'kassadin', 'katarina', 'kayle', 'kayn', 'kennen', 'khazix', 'kindred', 'kled', 'kogmaw', 'leblanc', 'leesin', 'leona', 'lillia', 'lissandra', 
+'lucian', 'lulu', 'lux', 'malphite', 'malzahar', 'maokai', 'masteryi', 'missfortune', 'mordekaiser', 'morgana', 'nami', 'nasus', 'nautilus', 
+'neeko', 'nidalee', 'nocturne', 'nunu', 'olaf', 'orianna', 'ornn', 'pantheon', 'poppy', 'pyke', 'qiyana', 'quinn', 'rakan', 'rammus', 'reksai', 
+'rell', 'renata', 'renekton', 'rengar', 'riven', 'rumble', 'ryze', 'samira', 'sejuani', 'senna', 'seraphine', 'sett', 'shaco', 'shen', 'shyvana', 
+'singed', 'sion', 'sivir', 'skarner', 'sona', 'soraka', 'swain', 'sylas', 'syndra', 'tahmkench', 'taliyah', 'talon', 'taric', 'teemo', 'thresh', 
+'tristana', 'trundle', 'tryndamere', 'twistedfate', 'twitch', 'udyr', 'urgot', 'varus', 'vayne', 'veigar', 'velkoz', 'vex', 'vi', 'viego', 
+'viktor', 'vladimir', 'volibear', 'warwick', 'wukong', 'xayah', 'xerath', 'xinzhao', 'yasuo', 'yone', 'yorick', 'yuumi', 'zac', 'zed', 'zeri', 
+'ziggs', 'zilean', 'zoe', 'zyra']
 
-for champ in champs:
-   fullUrl = urlBeggining + champ + urlEnding
+# for champ in champs:
+#    fullUrl = urlBeggining + champ + urlEnding
+#    source = requests.get(fullUrl).text
+#    soup = BeautifulSoup(source, 'lxml')
+#    name = soup.find('span', class_= 'champion-name').text
+#    winRate = soup.find('div', class_= "value").text
+
+#    print(f"{name}'s winrate is {winRate}")
+
+
+
+
+# This removes white space which allows us to 
+# input "twisted fate" which will turn into "twistedfate"
+# when creating the url there can't be whitespace
+
+selectedChamp = input("Type your champion: ") 
+selectedChamp = selectedChamp.replace(" ", "")         
+
+
+if selectedChamp not in champs:
+   print("Invalid champion.")
+else: 
+   fullUrl = urlBeggining + selectedChamp + urlEnding
    source = requests.get(fullUrl).text
    soup = BeautifulSoup(source, 'lxml')
    name = soup.find('span', class_= 'champion-name').text
    winRate = soup.find('div', class_= "value").text
-
    print(f"{name}'s winrate is {winRate}")
+
 
 
 # Code below is from CPE 101 Project 5. 
