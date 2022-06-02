@@ -4,12 +4,26 @@ from datetime import *
 from operator import *
 from bs4 import BeautifulSoup
 import math
+import requests
 
-with open("index.html") as fp:
-   soup = BeautifulSoup(fp, 'html.parser')
 
-soup = BeautifulSoup("<html>https://na.op.gg/champions/aatrox/top/build?region=na&tier=all</html>", 'html.parser')
+# install parser: pip install lxml
+# install requests: pip install requests
+ 
+ 
+# url format: urlBeggining championName urlEnding
+urlBeggining = 'http://u.gg/lol/champions/'
+urlEnding = '/build'
 
+champs = ['aatrox', 'garen']
+
+for champ in champs:
+   source = requests.get(urlBeggining + champ + urlEnding).text
+   soup = BeautifulSoup(source, 'lxml')
+   name = soup.find('div', class_= 'champion-name').text
+   winRate = soup.find('div', class_= "value").text
+
+   print(f"{name}'s winrate is {winRate}")
 
 
 # Code below is from CPE 101 Project 5. 
