@@ -10,7 +10,7 @@ import requests
 # install parser: pip install lxml
 # install requests: pip install requests
  
- 
+
 # url format: urlBeggining championName urlEnding
 urlBeggining = 'http://u.gg/lol/champions/'
 urlEnding = '/build'
@@ -18,9 +18,11 @@ urlEnding = '/build'
 champs = ['aatrox', 'garen']
 
 for champ in champs:
-   source = requests.get(urlBeggining + champ + urlEnding).text
+   fullUrl = urlBeggining + champ + urlEnding
+   print(fullUrl)
+   source = requests.get(fullUrl).text
    soup = BeautifulSoup(source, 'lxml')
-   name = soup.find('div', class_= 'champion-name').text
+   name = soup.find('span', class_= 'champion-name').text
    winRate = soup.find('div', class_= "value").text
 
    print(f"{name}'s winrate is {winRate}")
