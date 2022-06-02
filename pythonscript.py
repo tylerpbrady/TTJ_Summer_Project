@@ -19,18 +19,18 @@ from firebase import firebase
 urlBeggining = 'http://u.gg/lol/champions/'
 urlEnding = '/build'
 
-champs = {'aatrox', 'ahri', 'akali', 'akshan', 'alistar', 'alistar', 'amumu', 'anivia', 'annie', 'aphelios', 'ashe', 'aurelionsol', 'azir', 
-'bard', 'blitzcrank', 'brand', 'braum', 'caitlyn', 'camille', 'cassiopeia', 'chogath', 'corki', 'darius', 'diana', 'drmundo', 'draven', 'ekko',
-'elise', 'evelynn', 'ezreal', 'fiddlesticks', 'fiora', 'fizz', 'galio', 'gangplank', 'garen', 'gnar', 'gragas', 'graves', 'gwen', 'hecarim', 
-'heimerdinger', 'illaoi', 'irelia', 'ivern', 'janna', 'jarvaniv', 'jax', 'jayce', 'jhin', 'jinx', 'kaisa', 'kalista', 'karma', 'karthus', 
-'kassadin', 'katarina', 'kayle', 'kayn', 'kennen', 'khazix', 'kindred', 'kled', 'kogmaw', 'leblanc', 'leesin', 'leona', 'lillia', 'lissandra', 
-'lucian', 'lulu', 'lux', 'malphite', 'malzahar', 'maokai', 'masteryi', 'missfortune', 'mordekaiser', 'morgana', 'nami', 'nasus', 'nautilus', 
-'neeko', 'nidalee', 'nocturne', 'nunu', 'olaf', 'orianna', 'ornn', 'pantheon', 'poppy', 'pyke', 'qiyana', 'quinn', 'rakan', 'rammus', 'reksai', 
-'rell', 'renata', 'renekton', 'rengar', 'riven', 'rumble', 'ryze', 'samira', 'sejuani', 'senna', 'seraphine', 'sett', 'shaco', 'shen', 'shyvana', 
-'singed', 'sion', 'sivir', 'skarner', 'sona', 'soraka', 'swain', 'sylas', 'syndra', 'tahmkench', 'taliyah', 'talon', 'taric', 'teemo', 'thresh', 
-'tristana', 'trundle', 'tryndamere', 'twistedfate', 'twitch', 'udyr', 'urgot', 'varus', 'vayne', 'veigar', 'velkoz', 'vex', 'vi', 'viego', 
-'viktor', 'vladimir', 'volibear', 'warwick', 'wukong', 'xayah', 'xerath', 'xinzhao', 'yasuo', 'yone', 'yorick', 'yuumi', 'zac', 'zed', 'zeri', 
-'ziggs', 'zilean', 'zoe', 'zyra'}
+champs = {'aatrox':'top', 'ahri':'mid', 'akali':'mid', 'akshan':'mid', 'alistar':'sup', 'amumu': 'jg', 'anivia':'mid', 'annie':'mid', 'aphelios':'bot', 'ashe':'bot', 'aurelionsol':'mid', 'azir':'mid', 
+'bard':'sup', 'blitzcrank':'sup', 'brand':'sup', 'braum':'sup', 'caitlyn':'bot', 'camille':'top', 'cassiopeia':'mid', 'chogath':'top', 'corki':'mid', 'darius':'top', 'diana':'jg', 'drmundo':'top', 'draven':'bot', 'ekko':'jg',
+'elise':'jg', 'evelynn':'jg', 'ezreal':'bot', 'fiddlesticks':'jg', 'fiora':'top', 'fizz':'mid', 'galio':'mid', 'gangplank':'top', 'garen':'top', 'gnar':'top', 'gragas':'top', 'graves':'jg', 'gwen':'top', 'hecarim':'jg', 
+'heimerdinger':'top', 'illaoi':'top', 'irelia':'top', 'ivern':'jg', 'janna':'sup', 'jarvaniv':'jg', 'jax':'top', 'jayce':'top', 'jhin':'bot', 'jinx':'bot', 'kaisa':'bot', 'kalista':'bot', 'karma':'sup', 'karthus':'jg', 
+'kassadin':'mid', 'katarina':'mid', 'kayle':'top', 'kayn':'jg', 'kennen':'top', 'khazix':'jg', 'kindred':'jg', 'kled':'top', 'kogmaw':'bot', 'leblanc':'mid', 'leesin':'jg', 'leona':'sup', 'lillia':'jg', 'lissandra':'mid', 
+'lucian':'bot', 'lulu':'sup', 'lux':'sup', 'malphite':'top', 'malzahar':'mid', 'maokai':'sup', 'masteryi':'jg', 'missfortune':'bot', 'mordekaiser':'top', 'morgana':'sup', 'nami':'sup', 'nasus':'top', 'nautilus':'sup', 
+'neeko':'mid', 'nidalee':'jg', 'nocturne':'jg', 'nunu':'jg', 'olaf':'jg','orianna':'mid', 'ornn':'top', 'pantheon':'sup', 'poppy':'jg', 'pyke':'sup', 'qiyana':'mid', 'quinn':'top', 'rakan':'sup', 'rammus':'jg', 'reksai':'jg', 
+'rell':'sup', 'renata':'sup', 'renekton':'top', 'rengar':'jg', 'riven':'top', 'rumble':'top', 'ryze':'mid', 'samira':'bot', 'sejuani':'jg', 'senna':'sup', 'seraphine':'sup', 'sett':'top', 'shaco':'jg', 'shen':'top', 'shyvana':'jg', 
+'singed':'top', 'sion':'top', 'sivir':'bot', 'skarner':'jg', 'sona':'sup', 'soraka':'sup', 'swain':'sup', 'sylas':'mid', 'syndra':'mid', 'tahmkench':'top', 'taliyah':'mid', 'talon':'mid', 'taric':'sup', 'teemo':'top', 'thresh':'sup', 
+'tristana':'bot', 'trundle':'jg', 'tryndamere':'top', 'twistedfate':'mid', 'twitch':'bot', 'udyr':'jg', 'urgot':'top', 'varus':'bot', 'vayne':'bot', 'veigar':'mid', 'velkoz':'mid', 'vex':'mid', 'vi':'jg', 'viego':'jg', 
+'viktor':'mid', 'vladimir':'mid', 'volibear':'jg', 'warwick':'jg', 'wukong':'jg', 'xayah':'bot', 'xerath':'mid', 'xinzhao':'jg', 'yasuo':'mid', 'yone':'mid', 'yorick':'top', 'yuumi':'sup', 'zac':'jg', 'zed':'mid', 'zeri':'bot', 
+'ziggs':'mid', 'zilean':'sup', 'zoe':'mid', 'zyra':'sup'}
 
 # for champ in champs:
 #    fullUrl = urlBeggining + champ + urlEnding
@@ -43,6 +43,7 @@ champs = {'aatrox', 'ahri', 'akali', 'akshan', 'alistar', 'alistar', 'amumu', 'a
 
 
 db = firebase.FirebaseApplication("https://jaroniagg-default-rtdb.firebaseio.com/")
+dbChampUrl = '/jaroniagg-default-rtdb/'
 
 # This removes white space which allows us to 
 # input "twisted fate" which will turn into "twistedfate"
@@ -63,7 +64,7 @@ else:
    print(f"{name}'s winrate is {winRate}")
 
 
-   result = db.put('/jaroniagg-default-rtdb/Garen', 'top', winRate)
+   result = db.put('/jaroniagg-default-rtdb/Aatrox', 'top', winRate)
    print(result)
 
 
