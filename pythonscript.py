@@ -19,7 +19,6 @@ champs = ['aatrox', 'garen']
 
 for champ in champs:
    fullUrl = urlBeggining + champ + urlEnding
-   print(fullUrl)
    source = requests.get(fullUrl).text
    soup = BeautifulSoup(source, 'lxml')
    name = soup.find('span', class_= 'champion-name').text
