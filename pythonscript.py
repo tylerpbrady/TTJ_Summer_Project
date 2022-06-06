@@ -45,18 +45,9 @@ champs = {'aatrox':'top', 'ahri':'mid', 'akali':'mid', 'akshan':'mid', 'alistar'
 db = firebase.FirebaseApplication("https://jaroniagg-default-rtdb.firebaseio.com/")
 dbChampUrl = '/jaroniagg-default-rtdb/'
 
-# This removes white space which allows us to 
-# input "twisted fate" which will turn into "twistedfate"
-# when creating the url there can't be whitespace
-
-selectedChamp = input("Type your champion: ") 
-selectedChamp = selectedChamp.replace(" ", "")         
-
-
-if selectedChamp not in champs:
-   print("Invalid champion.")
-else: 
-   fullUrl = urlBeggining + selectedChamp + urlEnding
+for champ in champs:
+   role = champs[champ]
+   fullUrl = urlBeggining + champ + urlEnding
    source = requests.get(fullUrl).text
    soup = BeautifulSoup(source, 'lxml')
    name = soup.find('span', class_= 'champion-name').text
@@ -64,8 +55,30 @@ else:
    print(f"{name}'s winrate is {winRate}")
 
 
-   result = db.put('/jaroniagg-default-rtdb/Aatrox', 'top', winRate)
-   print(result)
+   result = db.put('/jaroniagg-default-rtdb/' + champ, role, winRate)
+   
+
+# This removes white space which allows us to 
+# input "twisted fate" which will turn into "twistedfate"
+# when creating the url there can't be whitespace
+
+# selectedChamp = input("Type your champion: ") 
+# selectedChamp = selectedChamp.replace(" ", "")         
+
+
+# if selectedChamp not in champs:
+#    print("Invalid champion.")
+# else: 
+#    fullUrl = urlBeggining + selectedChamp + urlEnding
+#    source = requests.get(fullUrl).text
+#    soup = BeautifulSoup(source, 'lxml')
+#    name = soup.find('span', class_= 'champion-name').text
+#    winRate = soup.find('div', class_= "value").text
+#    print(f"{name}'s winrate is {winRate}")
+
+
+#    result = db.put('/jaroniagg-default-rtdb/Aatrox', 'top', winRate)
+#    print(result)
 
 
 # Code below is from CPE 101 Project 5. 
