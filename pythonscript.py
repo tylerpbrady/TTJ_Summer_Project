@@ -6,7 +6,10 @@ from operator import *
 from bs4 import BeautifulSoup
 import math
 import requests
-from firebase import firebase
+# from firebase import firebase
+import boto3
+# pip install boto3
+# needed to interact with dynamodb
 
 
 
@@ -42,21 +45,49 @@ champs = {'aatrox':'top', 'ahri':'mid', 'akali':'mid', 'akshan':'mid', 'alistar'
 #    print(f"{name}'s winrate is {winRate}")
 
 
-db = firebase.FirebaseApplication("https://jaroniagg-default-rtdb.firebaseio.com/")
-dbChampUrl = '/jaroniagg-default-rtdb/'
+# db = firebase.FirebaseApplication("https://jaroniagg-default-rtdb.firebaseio.com/")
+# dbChampUrl = '/jaroniagg-default-rtdb/'
+
+
+
+
+# for champ in champs:
+#    role = champs[champ]
+#    fullUrl = urlBeggining + champ + urlEnding
+#    source = requests.get(fullUrl).text
+#    soup = BeautifulSoup(source, 'lxml')
+#    name = soup.find('span', class_= 'champion-name').text
+#    winRate = soup.find('div', class_= "value").text
+#    print(f"{name}'s winrate is {winRate}")
+
+
+#    result = db.put('/jaroniagg-default-rtdb/' + champ, role, winRate)
+   
+
+
+
+
+def storeInDynamo(champion, role):
+   urlBeggining = 'http://u.gg/lol/champions/'
+   urlEnding = '/build'
+   fullUrl = urlBeggining + champion + urlEnding
+   source = requests.get(fullUrl).text
+   soup = BeautifulSoup(source, 'lxml')
+   winRate = soup.find('div', class_= "value").text
+   tableName = "Champions"
+   dynamodb = boto3.resource('dynamodb')
+   table = dynamodb.Table(tableName)
+   dynamoItem = {
+      "champ" : {'S': champ},
+      "role": {'S': role},
+      "winrate": {'S' : winRate}
+   }
+   table.put_item(Item= dynamoItem)
+
 
 for champ in champs:
    role = champs[champ]
-   fullUrl = urlBeggining + champ + urlEnding
-   source = requests.get(fullUrl).text
-   soup = BeautifulSoup(source, 'lxml')
-   name = soup.find('span', class_= 'champion-name').text
-   winRate = soup.find('div', class_= "value").text
-   print(f"{name}'s winrate is {winRate}")
-
-
-   result = db.put('/jaroniagg-default-rtdb/' + champ, role, winRate)
-   
+   storeInDynamo(champ, role)
 
 # This removes white space which allows us to 
 # input "twisted fate" which will turn into "twistedfate"
@@ -86,40 +117,42 @@ for champ in champs:
 
 
 
-def read_quakes_from_file(filename):
-   inFile = open(filename, "r")
-   newlist = []
-   for line in inFile:
-      linelist = line.split()
+# def read_quakes_from_file(filename):
+#    inFile = open(filename, "r")
+#    newlist = []
+#    for line in inFile:
+#       linelist = line.split()
 
-      place = " ".join(linelist[4:])
-      mag = linelist[0]
-      longitude = linelist[1] 
-      latitude = linelist[2]
-      time = linelist[3]
-      earthquake = Earthquake(place, float(mag), float(longitude), float(latitude), int(time))
+#       place = " ".join(linelist[4:])
+#       mag = linelist[0]
+#       longitude = linelist[1] 
+#       latitude = linelist[2]
+#       time = linelist[3]
+#       earthquake = Earthquake(place, float(mag), float(longitude), float(latitude), int(time))
 
-      newlist.append(earthquake)
-   inFile.close()
+#       newlist.append(earthquake)
+#    inFile.close()
 
-   return newlist
-
-
-def get_json(url):
-   with urlopen(url) as response:
-      html = response.read()
-   htmlstr = html.decode("utf-8")
-   return loads(htmlstr)
+#    return newlist
 
 
-def write_to_file(filename, set):
-   out_file = open(filename, "w")
+# def get_json(url):
+#    with urlopen(url) as response:
+#       html = response.read()
+#    htmlstr = html.decode("utf-8")
+#    return loads(htmlstr)
 
-   for i in set:
-      out_file.write(f"{eq.mag} {eq.longitude} {eq.latitude} {eq.time} {eq.place}\n")
 
-   out_file.close()
+# def write_to_file(filename, set):
+#    out_file = open(filename, "w")
+
+#    for i in set:
+#       out_file.write(f"{eq.mag} {eq.longitude} {eq.latitude} {eq.time} {eq.place}\n")
+
+#    out_file.close()
 
 
 
    
+# if __name__ == "__main__":
+

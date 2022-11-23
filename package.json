@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "create-react-app": "^5.0.1",
+    "react-burger-menu":"^3.0.8"
+  }
+}
